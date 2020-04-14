@@ -27,8 +27,9 @@ void ATank::BeginPlay()
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+	if (!InputComponent) { return; }
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ATank::Fire); // Setting up the firing in C++. The course did this in BP.
 }
 
 void ATank::AimAt(FVector HitLocation)
@@ -44,4 +45,10 @@ void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 void ATank::SetTurretReference(UTankTurret* TurretToSet)
 {
 	TankAimingComponent->SetTurretReference(TurretToSet);
+}
+
+void ATank::Fire()
+{
+	auto Time = GetWorld()->DeltaTimeSeconds;
+	UE_LOG(LogTemp, Warning, TEXT("%f: ATank::Fire is being called"), Time);
 }

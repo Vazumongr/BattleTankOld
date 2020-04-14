@@ -17,7 +17,7 @@ void ATankAIController::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerTank was found at %s"), *PlayerTank->GetName());
+		//UE_LOG(LogTemp, Warning, TEXT("PlayerTank was found at %s"), *PlayerTank->GetName());
 	}
 
 	

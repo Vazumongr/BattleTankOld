@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Components/InputComponent.h"
 #include "Tank.generated.h"
 
 class UTankBarrel; // Forward Declaration
@@ -22,7 +23,8 @@ public:
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 	UFUNCTION(BlueprintCallable, Category = SetUp)
 	void SetTurretReference(UTankTurret* TurretToSet);
-
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
@@ -33,7 +35,7 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 100000.f;	// TODO find sensible default
+	float LaunchSpeed = 20000.f;	// TODO find sensible default
 
 	
 
