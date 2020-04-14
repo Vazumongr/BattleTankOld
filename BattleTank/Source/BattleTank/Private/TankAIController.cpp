@@ -25,5 +25,9 @@ void ATankAIController::Tick(float DeltaTime)
 		//Fire if ready
 		ControlledTank->Fire();
 	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%f: Player tank cannot be found by %s"), GetWorld()->DeltaTimeSeconds, *GetName());
+	}
 	
 }
