@@ -10,6 +10,7 @@
 class UTankBarrel; // Forward Declaration
 class UTankTurret; // Forward Declaration
 class UTankAimingComponent; // Forward Declaration
+class AProjectile;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -21,8 +22,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = SetUp)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
+
 	UFUNCTION(BlueprintCallable, Category = SetUp)
 	void SetTurretReference(UTankTurret* TurretToSet);
+
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 protected:
@@ -37,6 +40,11 @@ private:
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 20000.f;	// TODO find sensible default
 
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	//Local barrel reference for spawning projectile
+	UTankBarrel* Barrel = nullptr;
 	
 
 	
