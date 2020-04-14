@@ -5,7 +5,8 @@
 
 
 
-void UTankBarrel::Elevate(float DegreesPerSecond) const
+void UTankBarrel::Elevate(float RelativeSpeed) const
 {
-	UE_LOG(LogTemp, Warning, TEXT("Barrel-Elevate called at speed: %f"), DegreesPerSecond);
+	// move the barrel the right amount every frame
+	// Probably use a coroutine
 }
