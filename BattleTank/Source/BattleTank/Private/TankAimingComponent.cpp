@@ -4,6 +4,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"	
+#include "TankTurret.h"
+#include "Engine/World.h"
 
 
 // Sets default values for this component's properties
@@ -18,12 +20,20 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) const
 {
 	if (!Barrel) { return; }
+	if (!Turret) { return; }
 
 	// WorldContextObject = this;
 	FVector OutLaunchVelocity(0);
@@ -45,6 +55,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) const
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
+		MoveTurret(AimDirection);
 		auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), Time);
 	}
@@ -67,4 +78,14 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection) const
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
 
 	Barrel->Elevate(DeltaRotator.Pitch);
+}
+
+void UTankAimingComponent::MoveTurret(FVector AimDirection) const
+{
+	//Find the difference of our current rotation and where it needs to be
+	auto TurretRotation = Turret->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - TurretRotation;
+
+	Turret->Rotate(DeltaRotator.Yaw);
 }
