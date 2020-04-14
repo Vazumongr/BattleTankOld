@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Pawn.h"
-#include "TankBarrel.h"	
+//#include "TankBarrel.h"	
 #include "TankAimingComponent.generated.h"
+
+class UTankBarrel; // Forward Declaration
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

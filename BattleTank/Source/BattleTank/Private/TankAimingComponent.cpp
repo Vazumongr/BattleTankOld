@@ -3,6 +3,7 @@
 #include "TankAimingComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "TankBarrel.h"	
 
 
 // Sets default values for this component's properties
@@ -37,7 +38,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) const
 		false,
 		0,
 		0
-		,ESuggestProjVelocityTraceOption::DoNotTrace	// Comment this line to produce a bug.
+		,ESuggestProjVelocityTraceOption::DoNotTrace	// Comment this line to produce a bug. Parameter must be present to prevent bug
 	);
 	// Calculate the OutLaunchVelocity
 	if (bHaveAimSolution) //Calculate the OutLaucnhVelocity
