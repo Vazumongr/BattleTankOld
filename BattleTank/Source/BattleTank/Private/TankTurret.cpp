@@ -8,8 +8,6 @@
 
 void UTankTurret::Rotate(float RelativeSpeed)
 {
-	auto Time = GetWorld()->DeltaTimeSeconds;
-	//UE_LOG(LogTemp, Warning, TEXT("%f: UTankTurret::Rotate is being called with a speed of: %f"), Time, RelativeSpeed);
 
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
 

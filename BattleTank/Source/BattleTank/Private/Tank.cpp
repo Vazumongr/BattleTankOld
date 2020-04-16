@@ -2,6 +2,7 @@
 
 #include "Tank.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Projectile.h"
@@ -17,6 +18,7 @@ ATank::ATank()
 
 	// No need to protect pointers as added at construction
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 }
 
 // Called when the game starts or when spawned
@@ -62,6 +64,11 @@ void ATank::Fire()
 			Barrel->GetSocketRotation(FName("Projectile"))
 			);
 
+		if (!Projectile) 
+		{ 
+			UE_LOG(LogTemp, Error, TEXT("Projectile Blueprint is None. PLEASE FIX THIS BUG EPIC"))
+			return; 
+		}
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 	}
