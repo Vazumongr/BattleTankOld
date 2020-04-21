@@ -53,6 +53,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ReloadTimeInSeconds = 3.f;
-	float LastFireTime = -3.f;
+	float LastFireTime = 0.f;
 	
 };

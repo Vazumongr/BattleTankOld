@@ -5,13 +5,23 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Pawn.h"
-//#include "TankBarrel.h"	
 #include "TankAimingComponent.generated.h"
+
+
+// Enum for aiming state
+UENUM()
+enum class EFiringStatus : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
 
 class UTankBarrel; // Forward Declaration
 class UTankTurret; // Forward Declaration
 
-
+// Holds barrel's properties and elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
@@ -27,6 +37,9 @@ public:
 	void AimAt(FVector HitLocation, float LaunchSpeed) const;
 
 protected:
+
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringStatus FiringState = EFiringStatus::Reloading;
 
 private:	
 	UTankBarrel* Barrel = nullptr;
