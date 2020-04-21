@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Troy Records Jr.
 
 #include "TankAimingComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -18,15 +18,9 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
+void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
-	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
-{
-	if (!TurretToSet) { return; }
 	Turret = TurretToSet;
 }
 
@@ -54,30 +48,21 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) const
 	if (bHaveAimSolution) //Calculate the OutLaucnhVelocity
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrel(AimDirection);
-		MoveTurret(AimDirection);
+		MoveBarrelTowards(AimDirection);
 	}
 	// If no solution found, do nothing
 
 
 }
 
-void UTankAimingComponent::MoveBarrel(FVector AimDirection) const
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) const
 {
+	if (!Barrel || !Turret) { return; }
 	//Find the difference of our current rotation and where it needs to be
 	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
 
 	Barrel->Elevate(DeltaRotator.Pitch);
-}
-
-void UTankAimingComponent::MoveTurret(FVector AimDirection) const
-{
-	//Find the difference of our current rotation and where it needs to be
-	auto TurretRotation = Turret->GetForwardVector().Rotation();
-	auto AimAsRotator = AimDirection.Rotation();
-	auto DeltaRotator = AimAsRotator - TurretRotation;
-
 	Turret->Rotate(DeltaRotator.Yaw);
 }
