@@ -34,6 +34,8 @@ public:
 	
 	void AimAt(FVector HitLocation, float LaunchSpeed) const;
 
+	virtual void BeginPlay() override;
+
 protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
