@@ -1,13 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank.h"
-#include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
-#include "TankBarrel.h"
-#include "TankTurret.h"
-#include "Projectile.h"
-#include "GameFramework/DefaultPawn.h"
 #include "Engine/World.h"
+#include "GameFramework/DefaultPawn.h"
+#include "Projectile.h"
+#include "TankAimingComponent.h"
+#include "TankBarrel.h"
 
 
 // Sets default values
@@ -17,14 +15,12 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank.cpp Construct"), *TankName);
 }
 
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank.cpp BeginPlay"), *TankName);
 }
 
 void ATank::AimAt(FVector HitLocation)
