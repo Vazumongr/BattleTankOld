@@ -9,8 +9,7 @@
 
 class UTankBarrel; // Forward Declaration
 class UTankTurret; // Forward Declaration
-class UTankAimingComponent; // Forward Declaration
-class AProjectile;
+class AProjectile; // Forward Declaration
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -18,22 +17,16 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
 	virtual void BeginPlay() override;
-
-protected:
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
-
 private:
 	ATank();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 20000.f;	// TODO find sensible default
+	float LaunchSpeed = 20000.f;	// TODO Remove from tank?
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;

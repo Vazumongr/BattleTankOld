@@ -1,29 +1,29 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Troy Records Jr.
 
 #include "TankAIController.h"
 #include "Engine/World.h"
-#include "Tank.h"
+#include "TankAimingComponent.h"
 // Depends on movement component for ai pathfinding
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
+	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	ControlledTank = Cast<ATank>(GetPawn());
-	PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	PlayerTank = (GetWorld()->GetFirstPlayerController()->GetPawn());
 
-	if (ensure(PlayerTank))
+	if (ensure(PlayerTank && AimingComponent))
 	{
 		MoveToActor(PlayerTank, AcceptanceRadius); // TODO check if radius is in cm
 
 		//Aim at the player
-		ControlledTank->AimAt(PlayerTank->GetActorLocation());
+		AimingComponent->AimAt(PlayerTank->GetActorLocation());
 
-		ControlledTank->Fire();
+		//GetPawn()->Fire();	// TODO Fix firing
 	}
 	else
 	{
