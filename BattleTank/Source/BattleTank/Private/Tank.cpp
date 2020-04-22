@@ -29,14 +29,15 @@ void ATank::BeginPlay()
 
 void ATank::AimAt(FVector HitLocation)
 {
-	if (!TankAimingComponent) { return; }
+	if (!ensure(TankAimingComponent)) { return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel)) { return; }
 	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && bIsReloaded)
+	if (bIsReloaded)
 	{
 	// Spawn projectile at socket location of barrel
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
@@ -45,7 +46,7 @@ void ATank::Fire()
 			Barrel->GetSocketRotation(FName("Projectile"))
 			);
 
-		if (!Projectile) 
+		if (!ensure(Projectile)) 
 		{ 
 			UE_LOG(LogTemp, Error, TEXT("Projectile Blueprint is None. PLEASE FIX THIS BUG EPIC"))
 			return; 
