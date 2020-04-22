@@ -25,6 +25,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
+	UPROPERTY(BlueprintReadOnly)
+	UTankAimingComponent* AimingComponent = nullptr;
+
 private:
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
@@ -37,5 +40,4 @@ private:
 	float CrosshairYLocation = .33333f;
 	float LineTraceRange = 100000.f;
 
-	UTankAimingComponent* AimingComponent = nullptr;
 };

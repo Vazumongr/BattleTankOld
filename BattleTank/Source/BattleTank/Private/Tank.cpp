@@ -3,8 +3,6 @@
 #include "Tank.h"
 #include "Engine/World.h"
 #include "GameFramework/DefaultPawn.h"
-#include "Projectile.h"
-#include "TankBarrel.h"
 
 
 // Sets default values
@@ -17,31 +15,4 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-void ATank::Fire()
-{
-	if (!ensure(Barrel)) { return; }
-	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (bIsReloaded)
-	{
-	// Spawn projectile at socket location of barrel
-		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
-			ProjectileBlueprint, 
-			Barrel->GetSocketLocation(FName("Projectile")),
-			Barrel->GetSocketRotation(FName("Projectile"))
-			);
-
-		if (!ensure(Projectile)) 
-		{ 
-			UE_LOG(LogTemp, Error, TEXT("Projectile Blueprint is None. PLEASE FIX THIS BUG EPIC"))
-			return; 
-		}
-		Projectile->LaunchProjectile(LaunchSpeed);
-		LastFireTime = FPlatformTime::Seconds();
-	}
-
-
-	
-
 }

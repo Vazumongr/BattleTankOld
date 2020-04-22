@@ -23,11 +23,7 @@ void ATankAIController::Tick(float DeltaTime)
 		//Aim at the player
 		AimingComponent->AimAt(PlayerTank->GetActorLocation());
 
-		//GetPawn()->Fire();	// TODO Fix firing
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%f: Player tank cannot be found by %s"), GetWorld()->DeltaTimeSeconds, *GetName());
+		AimingComponent->Fire();
 	}
 	
 }
