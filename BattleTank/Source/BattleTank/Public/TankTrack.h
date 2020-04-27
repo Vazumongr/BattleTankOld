@@ -27,4 +27,10 @@ public:
 	// Max velocity of tank.
 	UPROPERTY(EditDefaultsOnly)
 	float MaxTankSpeed = 60; // 60 m/s?
+
+protected:
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+private:
+	UTankTrack();
 };
