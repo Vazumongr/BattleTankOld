@@ -36,7 +36,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 	
-	void AimAt(FVector HitLocation) const;
+	void AimAt(FVector HitLocation);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -63,5 +63,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3.f;
 	float LastFireTime = 0.f;
+
+	bool IsBarrelMoving();
+
+	FVector AimDirection;
 	
 };
