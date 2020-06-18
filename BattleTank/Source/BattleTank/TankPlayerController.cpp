@@ -59,7 +59,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 			HitResult,
 			StartLocation,
 			EndLocation,
-			ECollisionChannel::ECC_Visibility)
+			ECollisionChannel::ECC_Camera)
 		)
 	{
 		HitLocation = HitResult.Location;
@@ -83,7 +83,7 @@ void ATankPlayerController::SetPawn(APawn * InPawn)
 		auto PossessedTank = Cast<ATank>(InPawn);
 		if (!ensure(PossessedTank)) { return; }
 
-		// TODO Subscribe to tank delegate
+		
 		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
 	}
 }

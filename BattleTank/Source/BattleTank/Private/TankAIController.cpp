@@ -21,7 +21,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 	if (ensure(PlayerTank && AimingComponent))
 	{
-		MoveToActor(PlayerTank, AcceptanceRadius); // TODO check if radius is in cm
+		MoveToActor(PlayerTank, AcceptanceRadius);
 
 		//Aim at the player
 		AimingComponent->AimAt(PlayerTank->GetActorLocation());
@@ -40,7 +40,7 @@ void ATankAIController::SetPawn(APawn * InPawn)
 		auto PossessedTank = Cast<ATank>(InPawn);
 		if (!ensure(PossessedTank)) { return; }
 
-		// TODO Subscribe to tank delegate
+		
 		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnPossessedTankDeath);
 	}
 }
