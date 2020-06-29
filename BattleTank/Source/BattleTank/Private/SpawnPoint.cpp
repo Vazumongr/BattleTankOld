@@ -22,10 +22,10 @@ void USpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ASprungWheel* Wheel = GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, GetComponentTransform());
-	if (!Wheel) return;
-	Wheel->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
-	UGameplayStatics::FinishSpawningActor(Wheel, GetComponentTransform());
+	SpawnedActor = GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, GetComponentTransform());
+	if (!SpawnedActor) return;
+	SpawnedActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+	UGameplayStatics::FinishSpawningActor(SpawnedActor, GetComponentTransform());
 
 	
 }
@@ -39,8 +39,8 @@ void USpawnPoint::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	// ...
 }
 
-ASprungWheel* USpawnPoint::GetWheel()
+AActor* USpawnPoint::GetSpawnedActor() const
 {
-	return Wheel;
+	return SpawnedActor;
 }
 
