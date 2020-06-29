@@ -29,14 +29,11 @@ public:
 	float MaxTankSpeed = 60; // 60 m/s?
 
 protected:
-	void ApplySidewaysForce();
-	void DriveTrack();
-	virtual void BeginPlay() override;
 
 private:
 	UTankTrack();
-	UFUNCTION()
-	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 
-	float CurrentThrottle = 0;
+	void DriveTrack(float CurrentThrottle);
+
+	TArray<class ASprungWheel*> GetWheels() const;
 };
